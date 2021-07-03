@@ -3,25 +3,7 @@ import Navigation from '../Components/Navigation';
 import ButtonsBottom from '../Components/ButtonsBottom';
 import Logo from '../Components/Logo';
 import Projet from '../Components/Projet';
-
-// const Projects = [
-//     <>
-//         <Projet projectNumber={0} />
-//         <ButtonsBottom left={'/'} right={'/projet-2'} />
-//     </>,
-//     <>
-//         <Projet projectNumber={1} />
-//         <ButtonsBottom left={'/projet-1'} right={'/projet-3'} />
-//     </>,
-//     <>
-//         <Projet projectNumber={2} />
-//         <ButtonsBottom left={'/projet-2'} right={'/projet-4'} />
-//     </>,
-//     <>
-//         <Projet projectNumber={3} />
-//         <ButtonsBottom left={'/projet-3'} right={'/contact'} />
-//     </>,
-// ];
+import Mouse from '../Components/Mouse';
 
 const Bottoms = [
     <ButtonsBottom left={'/'} right={'/projet-2'} />,
@@ -34,10 +16,10 @@ const Bottoms = [
 export const Projets = ({ id }) => {
     return (
         <main>
+            <Mouse />
             <div className="project">
                 <Navigation />
                 <Logo />
-                {/* {Projects[id]} */}
                 <Projet projectNumber={id} />
                 {Bottoms[id]}
             </div>
