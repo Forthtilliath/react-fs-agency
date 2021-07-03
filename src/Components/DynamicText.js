@@ -1,64 +1,52 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
-export default class DynamicText extends React.Component {
-    constructor({ messages, delaiLetters = 80, delaiWords = 2000, target = '.text-target' }) {
-        super();
-        this.messages = typeof messages === 'string' ? [messages] : messages;
-        this.nbMessages = this.messages.length;
-        // Sélecteur de l'élément qui affiche les mots
-        // Ici l'élément n'existe pas encore, d'où le Sélecteur pour le sélectionner
-        // le moment venu.
-        this.target = target;
-        // Delai entre chaque lettre
-        this.delaiLetters = delaiLetters;
-        // Delai entre chaque mots
-        this.delaiWords = delaiWords;
+const DynamicText = ({ messages, delaiLetters = 140, delaiWords = 2000 }) => {
+    let array = messages;
+    let wordIndex = 0;
+    let letterIndex = 0;
 
-        // Démarre l'animation
-        this.showMessageFromArray();
-    }
+    useEffect(() => {
+        const target = document.getElementById('text-target');
 
-    /**
-     * Affiche un message lettre par lettre
-     * @param {String} message
-     * @param {Number} timeout Delai in ms
-     * @returns {Promise}
-     */
-    typingPromises = (message) =>
-        [...message].map(
-            (ch, i) =>
-                new Promise((resolve) => {
+        const createLetter = () => {
+            const letter = document.createElement('span');
+            target.appendChild(letter);
+
+            letter.classList.add('letter');
+            letter.style.opacity = '0';
+            letter.style.animation = 'anim 5s ease forwards';
+            letter.textContent = array[wordIndex][letterIndex];
+
+            setTimeout(() => {
+                letter.remove();
+            }, delaiWords);
+        };
+
+        const loop = () => {
+            setTimeout(() => {
+                if (wordIndex >= array.length) {
+                    /* eslint-disable */
+                    wordIndex = 0;
+                    letterIndex = 0;
+                    /* eslint-enable */
+                    loop();
+                } else if (letterIndex < array[wordIndex].length) {
+                    createLetter();
+                    letterIndex++;
+                    loop();
+                } else {
+                    letterIndex = 0;
+                    wordIndex++;
                     setTimeout(() => {
-                        resolve(message.substring(0, i + 1));
-                    }, this.delaiLetters * i);
-                }),
-        );
+                        loop();
+                    }, delaiWords);
+                }
+            }, delaiLetters);
+        };
+        loop();
+    }, []);
 
-    /**
-     * Affiche un message
-     * @param {String} message
-     */
-    showMessageFromString(message) {
-        this.typingPromises(message).forEach((promise) => {
-            promise.then((portion) => {
-                document.querySelector(this.target).textContent = portion;
-            });
-        });
-    }
+    return <span id="text-target"></span>;
+};
 
-    /**
-     *
-     * @param {String[]} array
-     * @param {Number} i Indice du tableau des messages
-     */
-    showMessageFromArray(i = 0) {
-        setTimeout(() => {
-            this.showMessageFromString(this.messages[i]);
-            this.showMessageFromArray(++i % this.nbMessages);
-        }, this.delaiWords);
-    }
-
-    render() {
-        return <span className="text-target"></span>;
-    }
-}
+export default DynamicText;

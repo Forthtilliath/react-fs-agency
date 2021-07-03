@@ -11,16 +11,16 @@ const Navigation = () => {
                 <li className="nav-portfolio">
                     <li>Portfolio</li>
                     <ul className="nav-projects">
-                        <NavLink exact className="hover" activeClassName="nav-active" to="/projets-1">
+                        <NavLink exact className="hover" activeClassName="nav-active" to="/projet-1">
                             <li>Projet 1</li>
                         </NavLink>
-                        <NavLink exact className="hover" activeClassName="nav-active" to="/projets-2">
+                        <NavLink exact className="hover" activeClassName="nav-active" to="/projet-2">
                             <li>Projet 2</li>
                         </NavLink>
-                        <NavLink exact className="hover" activeClassName="nav-active" to="/projets-3">
+                        <NavLink exact className="hover" activeClassName="nav-active" to="/projet-3">
                             <li>Projet 3</li>
                         </NavLink>
-                        <NavLink exact className="hover" activeClassName="nav-active" to="/projets-4">
+                        <NavLink exact className="hover" activeClassName="nav-active" to="/projet-4">
                             <li>Projet 4</li>
                         </NavLink>
                     </ul>

@@ -5,16 +5,18 @@ import Projets from './pages/Projets';
 import Contact from './pages/Contact';
 
 const App = () => {
-  return (
+    let nbProjets = 4;
+
+    return (
         <Switch>
             <Route exact path="/" component={Home} />
-            <Route exact path="/projet-1" component={Projets.Projet1} />
-            <Route exact path="/projet-2" component={Projets.Projet2} />
-            <Route exact path="/projet-3" component={Projets.Projet3} />
-            <Route exact path="/projet-4" component={Projets.Projet4} />
+            {/* Génère les routes dynamiquement */}
+            {[...Array(nbProjets).keys()].map((n) => (
+                <Route exact path={'/projet-' + (n + 1)} render={() => <Projets id={n} />} />
+            ))}
             <Route exact path="/contact" component={Contact} />
             <Redirect to="/" />
-      </Switch>
+        </Switch>
     );
 };
 

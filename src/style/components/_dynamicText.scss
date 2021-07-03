@@ -6,7 +6,7 @@
     color: $color-4;
   }
 
-  .text-target {
+  #text-target {
     display: flex;
     width: 300px;
     text-align: left;
@@ -30,8 +30,6 @@
   }
   .letter {
     transform: translateZ(200px);
-    opacity: 0;
-    animation: anim 5s ease forwards;
   }
   @keyframes anim {
     25% {
