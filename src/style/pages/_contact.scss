@@ -237,6 +237,7 @@
     .email .content p,
     .phone .content p {
       transition: 0.25s;
+      cursor: pointer;
 
       &:hover {
         transform: translateX(5px);

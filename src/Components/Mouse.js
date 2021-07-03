@@ -26,6 +26,11 @@ const Mouse = () => {
 
         return () => {
             window.removeEventListener('mousemove', handleCursor);
+
+        document.querySelectorAll('.hover').forEach((link) => {
+            link.removeEventListener('mouseover', handleHover);
+            link.removeEventListener('mouseleave', handleLeave);
+        });
         };
     }, []);
 

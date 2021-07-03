@@ -1,9 +1,9 @@
 import React from 'react';
-import ButtonsBottom from '../Components/ButtonsBottom';
-import DynamicText from '../Components/DynamicText';
-import Mouse from '../Components/Mouse';
-import Navigation from '../Components/Navigation';
-import SocialNetwork from '../Components/SocialNetwork';
+import ButtonsBottom from '../components/ButtonsBottom';
+import DynamicText from '../components/DynamicText';
+import Mouse from '../components/Mouse';
+import Navigation from '../components/Navigation';
+import SocialNetwork from '../components/SocialNetwork';
 
 const Home = () => {
     return (
