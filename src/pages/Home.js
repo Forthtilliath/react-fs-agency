@@ -1,5 +1,5 @@
 import React from 'react';
-import DynamicText from '../Components/DynamicText';
+import DynamicText from '../Components/DynamicText2';
 import Navigation from '../Components/Navigation';
 import SocialNetwork from '../Components/SocialNetwork';
 
