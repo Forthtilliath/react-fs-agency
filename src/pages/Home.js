@@ -1,5 +1,5 @@
 import React from 'react';
-import DynamicText from '../Components/DynamicText2';
+import DynamicText from '../Components/DynamicText';
 import Navigation from '../Components/Navigation';
 import SocialNetwork from '../Components/SocialNetwork';
 
@@ -12,7 +12,10 @@ const Home = () => {
                 <div className="main-content">
                     <h1>FS AGENCY</h1>
                     <h2>
-                        <DynamicText />
+                        <span className="dynamic-text">
+                            <span className="simply">simply</span>
+                            <DynamicText messages={['simple', 'clear', 'smart', 'strong']} />
+                        </span>
                     </h2>
                 </div>
             </div>
