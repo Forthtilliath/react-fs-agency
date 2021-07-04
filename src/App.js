@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { Route, Switch, Redirect, useLocation, useHistory } from 'react-router-dom';
 import Home from './pages/Home';
 import Projets from './pages/Projets';
@@ -10,8 +10,9 @@ const App = () => {
     const location = useLocation();
     const history = useHistory();
 
-    // const arrRoutes = ['', 'projet-1', 'projet-2', 'projet-3', 'projet-4', 'contact'];
+    const arrRoutes = useMemo(() => ['', 'projet-1', 'projet-2', 'projet-3', 'projet-4', 'contact'], []);
 
+    /** Ajoute un délai entre chaque appel */
     const wait = useCallback(
         (fn) => {
             const time = +new Date();
@@ -23,42 +24,20 @@ const App = () => {
         [lastScroll],
     );
 
-    const wheelRouter = useCallback(
-        (wheel, before, after) => {
-            // Appelé après un event sur le wheel, donc on considère que
-            // wheel ne peut etre égal à 0
-            wait(() => (wheel < 0 ? history.push(after) : history.push(before)));
-        },
-        [history, wait],
-    );
-
     const handleScrollToElement = useCallback(
         (e) => {
             const url = window.location.origin + '/';
 
-            switch (window.location.href.toString()) {
-                case url:
-                    if (e.wheelDeltaY < 0) wait(() => history.push('projet-1'));
-                    break;
-                case url + 'projet-1':
-                    wheelRouter(e.wheelDeltaY, '', 'projet-2');
-                    break;
-                case url + 'projet-2':
-                    wheelRouter(e.wheelDeltaY, 'projet-1', 'projet-3');
-                    break;
-                case url + 'projet-3':
-                    wheelRouter(e.wheelDeltaY, 'projet-2', 'projet-4');
-                    break;
-                case url + 'projet-4':
-                    wheelRouter(e.wheelDeltaY, 'projet-3', 'contact');
-                    break;
-                case url + 'contact':
-                    if (e.wheelDeltaY > 0) wait(() => history.push('projet-4'));
-                    break;
-                default:
+            let iRoute = arrRoutes.findIndex((route) => window.location.href.toString() === url + route);
+
+            // Ajout de la navigation au scroll
+            if (e.wheelDeltaY > 0) {
+                if (iRoute > 0) wait(() => history.push(arrRoutes[iRoute - 1]));
+            } else {
+                if (iRoute < arrRoutes.length) wait(() => history.push(arrRoutes[iRoute + 1]));
             }
         },
-        [history, wait, wheelRouter],
+        [arrRoutes, history, wait],
     );
 
     useEffect(() => {
