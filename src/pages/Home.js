@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import ButtonsBottom from '../components/ButtonsBottom';
 import DynamicText from '../components/DynamicText';
 import Mouse from '../components/Mouse';
@@ -23,22 +23,32 @@ const Home = () => {
             x: -100,
         },
     };
+    const constraintsRef = useRef(null);
 
     return (
         <main>
             <Mouse />
-            <motion.div className="home" initial="initial" animate="visible" exit="exit" variants={variants}>
+            <motion.div
+                className="home"
+                initial="initial"
+                animate="visible"
+                exit="exit"
+                variants={variants}
+                ref={constraintsRef}
+            >
                 <Navigation />
                 <SocialNetwork />
                 <div className="home-main">
                     <div className="main-content">
-                        <h1>Forth AGENCY</h1>
-                        <h2>
+                        <motion.h1 drag onDragEnd dragConstraints={constraintsRef}>
+                            Forth AGENCY
+                        </motion.h1>
+                        <motion.h2 drag onDragEnd dragConstraints={constraintsRef}>
                             <span className="dynamic-text">
                                 <span className="simply">simply</span>
                                 <DynamicText messages={['simple', 'clear', 'smart', 'strong']} delaiLetters={80} />
                             </span>
-                        </h2>
+                        </motion.h2>
                     </div>
                 </div>
                 <ButtonsBottom right={'/projet-1'} />
