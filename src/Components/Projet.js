@@ -46,7 +46,7 @@ const Projet = ({ projectNumber }) => {
             x: -800,
         },
     };
-    const transitions = {
+    const transition = {
         ease: [0.03, 0.87, 0.73, 0.9],
         duration: 0.6,
     };
@@ -58,7 +58,7 @@ const Projet = ({ projectNumber }) => {
             animate="visible"
             exit="exit"
             variants={variants}
-            transition={transitions}
+            transition={transition}
         >
             <div className="project-content">
                 {/* La key permet de reset l'animation */}
