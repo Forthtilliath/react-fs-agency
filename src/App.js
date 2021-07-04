@@ -3,6 +3,7 @@ import { Route, Switch, Redirect, useLocation, useHistory } from 'react-router-d
 import Home from './pages/Home';
 import Projets from './pages/Projets';
 import Contact from './pages/Contact';
+import { AnimatePresence } from 'framer-motion';
 
 const App = () => {
     const [lastScroll, setLastScroll] = useState(0);
@@ -48,15 +49,17 @@ const App = () => {
     }, [handleScrollToElement]);
 
     return (
-        <Switch location={location} key={location.pathname}>
-            <Route exact path="/" component={Home} />
-            {/* Génère les routes dynamiquement */}
-            {[...Array(nbProjets).keys()].map((n) => (
-                <Route exact path={'/projet-' + (n + 1)} render={() => <Projets id={n} />} />
-            ))}
-            <Route exact path="/contact" component={Contact} />
-            <Redirect to="/" />
-        </Switch>
+        <AnimatePresence>
+            <Switch location={location} key={location.pathname}>
+                <Route exact path="/" component={Home} />
+                {/* Génère les routes dynamiquement */}
+                {[...Array(nbProjets).keys()].map((n) => (
+                    <Route exact path={'/projet-' + (n + 1)} render={() => <Projets id={n} />} />
+                ))}
+                <Route exact path="/contact" component={Contact} />
+                <Redirect to="/" />
+            </Switch>
+        </AnimatePresence>
     );
 };
 
