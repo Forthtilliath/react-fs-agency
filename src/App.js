@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import { Route, Switch, Redirect, useLocation, useHistory } from 'react-router-dom';
 import Home from './pages/Home';
 import Projets from './pages/Projets';
@@ -15,44 +15,47 @@ const App = () => {
     //     setTimeout(fn, 500);
     // }
 
-    const wheelRouter = (wheel, before, after) => {
+    const wheelRouter = useCallback((wheel, before, after) => {
         // Appelé après un event sur le wheel, donc on considère que
         // wheel ne peut etre égal à 0
         wheel < 0 ? history.push(after) : history.push(before);
-    };
+    },[history]);
 
-    const handleScrollToElement = (e) => {
-        const url = window.location.origin + '/';
+    const handleScrollToElement = useCallback(
+        (e) => {
+            const url = window.location.origin + '/';
 
-        switch (window.location.href.toString()) {
-            case url:
-                if (e.wheelDeltaY < 0) history.push('projet-1');
-                break;
-            case url + 'projet-1':
-                wheelRouter(e.wheelDeltaY, "", "projet-2");
-                break;
-            case url + 'projet-2':
-                wheelRouter(e.wheelDeltaY, 'projet-1', 'projet-3');
-                break;
-            case url + 'projet-3':
-                wheelRouter(e.wheelDeltaY, "projet-2", "projet-4");
-                break;
-            case url + 'projet-4':
-                wheelRouter(e.wheelDeltaY, "projet-3", "contact");
-                break;
-            case url + 'contact':
-                if (e.wheelDeltaY > 0) history.push('projet-4');
-                break;
-            default:
-        }
-    };
+            switch (window.location.href.toString()) {
+                case url:
+                    if (e.wheelDeltaY < 0) history.push('projet-1');
+                    break;
+                case url + 'projet-1':
+                    wheelRouter(e.wheelDeltaY, '', 'projet-2');
+                    break;
+                case url + 'projet-2':
+                    wheelRouter(e.wheelDeltaY, 'projet-1', 'projet-3');
+                    break;
+                case url + 'projet-3':
+                    wheelRouter(e.wheelDeltaY, 'projet-2', 'projet-4');
+                    break;
+                case url + 'projet-4':
+                    wheelRouter(e.wheelDeltaY, 'projet-3', 'contact');
+                    break;
+                case url + 'contact':
+                    if (e.wheelDeltaY > 0) history.push('projet-4');
+                    break;
+                default:
+            }
+        },
+        [history, wheelRouter],
+    );
 
     useEffect(() => {
         window.addEventListener('wheel', handleScrollToElement);
         return () => {
             window.removeEventListener('wheel', handleScrollToElement);
         };
-    }, [history]);
+    }, [handleScrollToElement]);
 
     return (
         <Switch location={location} key={location.pathname}>
