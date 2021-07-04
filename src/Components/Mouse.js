@@ -4,8 +4,11 @@ const Mouse = () => {
     const cursor = useRef(null);
 
     const handleCursor = (e) => {
-        cursor.current.style.top = e.pageY + 'px';
-        cursor.current.style.left = e.pageX + 'px';
+        // Provoquait parfois une erreur
+        if (cursor.current) {
+            cursor.current.style.top = e.pageY + 'px';
+            cursor.current.style.left = e.pageX + 'px';
+        }
     };
 
     const handleHover = () => {
@@ -27,10 +30,10 @@ const Mouse = () => {
         return () => {
             window.removeEventListener('mousemove', handleCursor);
 
-        document.querySelectorAll('.hover').forEach((link) => {
-            link.removeEventListener('mouseover', handleHover);
-            link.removeEventListener('mouseleave', handleLeave);
-        });
+            document.querySelectorAll('.hover').forEach((link) => {
+                link.removeEventListener('mouseover', handleHover);
+                link.removeEventListener('mouseleave', handleLeave);
+            });
         };
     }, []);
 
