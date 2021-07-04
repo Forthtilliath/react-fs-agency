@@ -62,6 +62,8 @@ Ensuite, j'ai bien aimé ce système de navigation horizontale au scroll. Ca pou
 
 De plus, ce projet m'a montré de nombreuses façons d'animer une page : que cela soit par du texte dynamique (sur le home), des éléments qui apparaissent à des positions aléatoires (les cercles en fond), des animations d'arrivée et de sorti différente (pour les pages et les projets), voir même des animations générées aléatoirement (pour l'arrivée des images de projet) et j'en passe.
 
+J'ai aussi eu l'occasion de découvrir le service emailjs, qui est vraiment pratique pour l'envoi de mail et la gestion du template ! Bon à réutiliser.
+
 # Screenshots du projet
 
 ![home](screenshots/home.png)
